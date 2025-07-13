@@ -486,12 +486,12 @@
     ];
 
     // Get current day of year
-    function getDayOfYear() {
-      const now = new Date();
-      const start = new Date(now.getFullYear(), 0, 0);
-      const diff = now - start + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
-      return Math.floor(diff / (1000 * 60 * 60 * 24));
-    }
+  function getDayOfYear() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0); // Jan 0
+    const diff = now - start + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+    return Math.floor(diff / (1000 * 60 * 60 * 24)); // was fine, but...
+  }
 
     // Shuffle function based on seed
     function seededShuffle(array, seed) {
@@ -515,7 +515,7 @@
 
     const today = getDayOfYear();
     const shuffledQuotes = seededShuffle(quotes, 2025);
-    const todayQuote = shuffledQuotes[today % shuffledQuotes.length];
+    const todayQuote = shuffledQuotes[(today - 1) % quotes.length];
 
     document.getElementById("quote").textContent = todayQuote;
   </script>
